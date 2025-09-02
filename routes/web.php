@@ -1,18 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\Auth\MicrosoftController;
 
-
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return view('welcome');  // Pastikan ada file resources/views/welcome.blade.php
 });
 
 Route::middleware([
@@ -21,10 +13,10 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        return view('dashboard');  // Pastikan resources/views/dashboard.blade.php ada
     })->name('dashboard');
 });
 
-
+// Microsoft Login routes
 Route::get('/login/microsoft', [MicrosoftController::class, 'redirectToMicrosoft'])->name('login.microsoft');
 Route::get('/login/microsoft/callback', [MicrosoftController::class, 'handleMicrosoftCallback']);

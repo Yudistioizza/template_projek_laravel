@@ -1,23 +1,7 @@
-import './bootstrap';
-import '../css/app.css';
+import './bootstrap';      // Kalau kamu pakai bootstrap.js, sesuaikan saja
+import '../css/app.css';   // Import CSS utama
 
-import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+// Untuk Livewire biasa (standar Laravel), kamu cukup:
+import 'laravel-livewire-turbolinks'; // jika pakai Turbolinks (opsional)
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
-
-createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
-    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
-    setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .use(ZiggyVue)
-            .mount(el);
-    },
-    progress: {
-        color: '#4B5563',
-    },
-});
+// Biasanya Livewire sudah otomatis inject di blade, jadi gak perlu mount manual seperti Vue
